@@ -6,7 +6,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 require('./db');
-const userRoute = require('./routes/user');
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const catagoryRoutes = require('./routes/catagory');
 
 const port = process.env.PORT || 3001;
 
@@ -18,5 +20,8 @@ app.use(cookieParser());
 // app.use(expressValidator());
 
 // routes
-app.use('/api', userRoute);
+app.use('/api', authRoutes);
+app.use('/api', userRoutes);
+app.use('/api', catagoryRoutes);
+
 app.listen(port, () => `server running on ${port}`);
