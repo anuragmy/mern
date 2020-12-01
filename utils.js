@@ -1,9 +1,8 @@
 const bcrypt = require('bcrypt');
 
 
-exports.hashPassword = password => {
-  return bcrypt.hashSync(password, 10);
-}
+exports.hashPassword = password => bcrypt.hashSync(password, 10);
+exports.compareHashedPassword = (password, hash) => bcrypt.compareSync(password, hash);
 
 const uniqueMessage = error => {
   let output;
