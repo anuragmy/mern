@@ -39,6 +39,7 @@ exports.signIn = async (req, res) => {
     }
 
     // compare password
+    req.profile = user;
     const result = compareHashedPassword(password, user.password);
     if (result) {
       // create jwt 
@@ -47,6 +48,7 @@ exports.signIn = async (req, res) => {
       res.cookie('t', token, { expire: new Date() + 9999 });
       // send user and toke to client
       const { _id, name, email, roles } = user;
+      req.user = user;
       return res.status(200).json({ token, user: { _id, email, name, roles } })
     }
     else {
@@ -72,17 +74,15 @@ exports.requireSignIn = expressJwt({
 })
 
 exports.isAuth = (req, res, next) => {
-  const user = req.profile && req.auth && req.profile._id === req.auth._id;
-  if (!user) return res.status(403).json({
+  if (!req.profile && !req.auth && req.profile._id !== req.auth._id) return res.status(403).json({
     err: 'Access denied'
   })
   next();
 }
 
 exports.isAdmin = (req, res, next) => {
-  console.log(req.profile)
-  // if (req.profile.roles === 0) return res.status(403).json({
-  //   error: 'Admin resourse, access denied!'
-  // })
+  if (req.profile.roles === 0) return res.status(403).json({
+    error: 'Admin resourse, access denied!'
+  })
   next();
 }
