@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 require('dotenv').config();
 const bodyParser = require('body-parser');
 // const expressValidator = require('express-validator');
@@ -17,6 +18,7 @@ const port = process.env.PORT || 3001;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
+app.use(cors());
 app.use(cookieParser());
 // app.use(expressValidator());
 
