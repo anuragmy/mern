@@ -1,9 +1,18 @@
 const router = require('express').Router();
-
 const { userById } = require('../controllers/user');
-const { create, read, productById, remove, update, list, related, listCatagories } = require('../controllers/product');
+const {
+  create,
+  read,
+  productById,
+  remove,
+  update,
+  list,
+  related,
+  listCatagories,
+  listBySearch,
+  photo,
+} = require('../controllers/product');
 const { requireSignIn, isAuth, isAdmin } = require('../controllers/auth');
-
 
 
 router.post('/product/create/:userId',
@@ -12,7 +21,9 @@ router.post('/product/create/:userId',
   isAdmin,
   create,
 );
+router.post('/products', listBySearch);
 router.get('/products', list);
+router.get('/product/photo/:productId', photo);
 router.put('/product/:productId/:userId',
   requireSignIn,
   isAuth,

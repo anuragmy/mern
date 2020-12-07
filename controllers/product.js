@@ -158,3 +158,44 @@ exports.listCatagories = (req, res) => {
     res.send(catagories);
   });
 }
+
+exports.listBySearch = (req, res) => {
+  const order = req.body.order ? req.body.order : 'asc';
+  const sortBy = req.body.sortBy ? req.body.sortBy : '_id';
+  const limit = req.body.limit ? parseInt(req.body.limit) : 4;
+  const skip = parseInt(req.body.skip);
+  let findArgs = {};
+
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      if (key === 'price') {
+        findArgs[key] = {
+          $gte: req.body.filters[key][0],
+          $lte: req.body.filters[key][1],
+        }
+      }
+      else {
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
+
+  Product.find(findArgs, { photo: 0 })
+    .sort([[sortBy, order]])
+    .limit(limit)
+    .exec((err, data) => {
+      if (err) return res.status(404).json({ err: 'Producets not found' });
+      res.json({
+        size: data.lenght,
+        data,
+      });
+    });
+}
+
+exports.photo = (req, res, next) => {
+  if (req.product.photo.data) {
+    res.set('Content-Type', req.product.photo.data.contentType);
+    return res.send(req.product.photo.data)
+  }
+  next();
+}
