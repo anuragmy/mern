@@ -1,8 +1,10 @@
 const Product = require('../models/product');
+const Catagory = require('../models/catagory');
 const fs = require('fs');
 const formidable = require('formidable');
 const _ = require('lodash');
 const { errorHandler } = require('../utils');
+
 
 
 exports.create = (req, res) => {
@@ -45,20 +47,26 @@ exports.create = (req, res) => {
 }
 
 exports.productById = (req, res, next, id) => {
-  Product.findById(id).exec((err, data) => {
-    if (err || !data) {
-      return res.status(404).json({
-        err: 'Product not found',
-      })
-    }
-    req.product = data;
-    next();
-  })
+  Product.findById(id)
+    .exec((err, data) => {
+      if (err || !data) {
+        return res.status(404).json({
+          err: 'Product not found',
+        })
+      }
+      req.product = data;
+      next();
+    })
 }
 
 exports.read = (req, res) => {
   req.product.photo = undefined;
-  return res.json(req.product);
+  Catagory.findById(req.product.catagory).exec((err, catagory) => {
+    return res.json({
+      catagory,
+      product: req.product
+    });
+  });
 }
 
 exports.remove = (req, res, next) => {
@@ -116,4 +124,37 @@ exports.update = (req, res) => {
 
   })
 
+}
+exports.list = (req, res) => {
+  const order = req.query.order ? req.query.order : 'asc';
+  const limit = req.query.limit ? req.query.limit : 4;
+  const sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+
+  // Product.find().exec((err, products) => {
+  //   if (err) return res.status(404).json({ err: 'Products not found' })
+  //   res.send(products);
+  // })
+
+  Product.find({}, { photo: 0 })
+    // .populate('catagory')
+    // .sort([[sortBy, order]])
+    .exec((err, data) => {
+      if (err) return res.status(404).json({ err });
+      res.send(data);
+    });
+}
+
+exports.related = (req, res) => {
+  Product.find({ _id: { $ne: req.product }, catagory: req.product.catagory }, { photo: 0 })
+    .exec((err, data) => {
+      if (err) return res.status(404).json({ err });
+      res.send(data);
+    });
+}
+
+exports.listCatagories = (req, res) => {
+  Product.distinct('catagory', {}, (err, catagories) => {
+    if (err) return res.status(400).json({ err: 'Catagories not found' });
+    res.send(catagories);
+  });
 }

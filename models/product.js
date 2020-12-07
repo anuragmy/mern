@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { ObjectId } = mongoose.Schema;
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -22,11 +21,15 @@ const productSchema = new mongoose.Schema({
     type: Boolean,
     required: false,
   },
+  sold: {
+    type: Number,
+    default: 0,
+  },
   quantity: {
     type: Number,
   },
   catagory: {
-    type: ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Catagory',
     required: true,
   },
