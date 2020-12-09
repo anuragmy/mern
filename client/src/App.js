@@ -1,9 +1,14 @@
-
-
 // import logo from './logo.svg';
-// import './App.css';
-import Routes from './routes';
+import './App.css';
+import Home from './components/Home';
 
-const App = () => <Routes />
+
+const App = () => {
+  return (
+    <div>
+      <Home />
+    </div>
+  );
+}
 
 export default App;
