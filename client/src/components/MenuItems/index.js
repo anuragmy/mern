@@ -10,7 +10,8 @@ const MenuItems = ({ title, size, image }) => {
         style={{
           border: "1px solid black",
           height: 300,
-          background: `url(${image}) center center no-repeat`,
+          background: `url(${image})`,
+          backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
