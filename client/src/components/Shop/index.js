@@ -10,14 +10,12 @@ const Shop = () => {
   return (
     <Container>
       <h1>Collections</h1>
-      <Grid item Container spacing={2}>
-        {data.map(({ title, id, items }) => (
-          <div key={id}>
-            <h2>{title}</h2>
-            <Collections items={items} />
-          </div>
-        ))}
-      </Grid>
+      {data.map(({ title, id, items }) => (
+        <div key={id}>
+          <h2>{title}</h2>
+          <Collections items={items} />
+        </div>
+      ))}
     </Container>
   );
 };

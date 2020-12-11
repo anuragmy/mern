@@ -20,14 +20,6 @@ const AddtoCart = () => (
     >
       ADD TO CART
     </div>
-    <style jsx="true">
-      {`
-        .cart-button:hover {
-          color: white;
-          background-color: black;
-        }
-      `}
-    </style>
   </>
 );
 

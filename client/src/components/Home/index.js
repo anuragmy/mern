@@ -1,12 +1,16 @@
 import React from "react";
+// import Header from "../Header";
 import Directory from "../Directory";
 import "./homepage.styles.scss";
 
 const Home = () => {
   return (
-    <div className="homepage">
-      <Directory />
-    </div>
+    <>
+      {/* <Header /> */}
+      <div className="homepage">
+        <Directory />
+      </div>
+    </>
   );
 };
 
