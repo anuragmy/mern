@@ -1,14 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import { Grid, Container } from "@material-ui/core";
+import { Redirect, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useDispatch, connect } from "react-redux";
+import { signIn } from "../actions";
 // import GoogleLogin from "react-google-login";
-import axios from "axios";
 import "tachyons";
 
-const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const SignIn = ({ loading, user }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [email, setEmail] = useState("anuragmy2729@gmail.com");
+  const [password, setPassword] = useState("Anurag");
+  const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
 
   const changePassword = (e) => {
@@ -19,16 +24,15 @@ const SignIn = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (!email || !password)
       return setErrors(errors.concat({ err: "All Fields Required" }));
-    await axios
-      .post("http://localhost:3000/api/sign-in", { email, password })
-      .then((res) => console.log("signed in", res));
+    dispatch(signIn(email, password));
   };
 
-  // const responseGoogle = (response) => {
-  //   console.log(response);
-  // };
+  React.useEffect(() => {
+    if (localStorage.getItem("token")) return history.push("/");
+  }, [history, user]);
 
   return (
     <Container style={{ marginTop: "5%" }}>
@@ -90,14 +94,6 @@ const SignIn = () => {
               Sign In
             </span>
           </a>
-          {/* <GoogleLogin
-            clientId="324302734105-5ql0jqdkaclad41uihbj22vnti4hk4h8.apps.googleusercontent.com"
-            onSuccess={responseGoogle}
-            class="btn"
-            onFailure={responseGoogle}
-            cookiePolicy={"single_host_origin"}
-            isSignedIn={true}
-          > */}
           <a
             style={{
               marginLeft: 20,
@@ -112,7 +108,6 @@ const SignIn = () => {
               Sign In with Google
             </span>
           </a>
-          {/* </GoogleLogin> */}
         </form>
         <h3>
           Dont' have an account?{" "}
@@ -126,13 +121,19 @@ const SignIn = () => {
           input:focus {
             outline: none;
           }
-          svg {
-            display: none;
-          }
         `}
       </style>
     </Container>
   );
 };
 
-export default SignIn;
+const mapStateToProps = (state) => ({
+  loading: state.auth.authLoading,
+  user: state.auth.token,
+});
+
+// const mapDispatchToProps = (dispatch) => ({
+//   signIn: () => dispatch(signIn()),
+// });
+
+export default connect(mapStateToProps, null)(SignIn);
