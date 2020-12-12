@@ -2,8 +2,10 @@
 import React, { useState } from "react";
 import { Grid, Container } from "@material-ui/core";
 import { Link } from "react-router-dom";
+// import GoogleLogin from "react-google-login";
 import axios from "axios";
 import "tachyons";
+
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,9 +22,14 @@ const SignIn = () => {
     if (!email || !password)
       return setErrors(errors.concat({ err: "All Fields Required" }));
     await axios
-      .post("/sign-in", { email, password })
+      .post("http://localhost:3000/api/sign-in", { email, password })
       .then((res) => console.log("signed in", res));
   };
+
+  // const responseGoogle = (response) => {
+  //   console.log(response);
+  // };
+
   return (
     <Container style={{ marginTop: "5%" }}>
       <Grid
@@ -42,7 +49,7 @@ const SignIn = () => {
             style={{
               border: "none",
               borderBottom: "1px solid black",
-              padding: 10,
+              paddingTop: 20,
               marginBottom: 20,
               fontSize: 20,
               width: "80%",
@@ -59,7 +66,7 @@ const SignIn = () => {
             style={{
               border: "none",
               borderBottom: "1px solid black",
-              padding: 10,
+              paddingTop: 20,
               marginBottom: 20,
               fontSize: 20,
               width: "80%",
@@ -83,6 +90,14 @@ const SignIn = () => {
               Sign In
             </span>
           </a>
+          {/* <GoogleLogin
+            clientId="324302734105-5ql0jqdkaclad41uihbj22vnti4hk4h8.apps.googleusercontent.com"
+            onSuccess={responseGoogle}
+            class="btn"
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+            isSignedIn={true}
+          > */}
           <a
             style={{
               marginLeft: 20,
@@ -97,6 +112,7 @@ const SignIn = () => {
               Sign In with Google
             </span>
           </a>
+          {/* </GoogleLogin> */}
         </form>
         <h3>
           Dont' have an account?{" "}
@@ -109,6 +125,9 @@ const SignIn = () => {
         {`
           input:focus {
             outline: none;
+          }
+          svg {
+            display: none;
           }
         `}
       </style>

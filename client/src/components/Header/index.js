@@ -11,19 +11,20 @@ const Header = () => {
       </Link>
       <div className="options">
         <Link
+          to="/"
+          className="option"
+          style={{ textDecoration: "none", color: "black", fontSize: "bold" }}
+        >
+          HOME
+        </Link>
+        <Link
           to="/shop"
           className="option"
           style={{ textDecoration: "none", color: "black", fontSize: "bold" }}
         >
           SHOP
         </Link>
-        <Link
-          to="/contact"
-          className="option"
-          style={{ textDecoration: "none", color: "black", fontSize: "bold" }}
-        >
-          CONTACT
-        </Link>
+
         <Link
           to="/signin"
           className="option"
