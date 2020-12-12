@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import { Grid, Container } from "@material-ui/core";
@@ -30,9 +31,9 @@ const SignIn = ({ loading, user }) => {
     dispatch(signIn(email, password));
   };
 
-  React.useEffect(() => {
-    if (localStorage.getItem("token")) return history.push("/");
-  }, [history, user]);
+  // React.useEffect(() => {
+  //   if (localStorage.getItem("token")) return history.push("/");
+  // }, [history, user]);
 
   return (
     <Container style={{ marginTop: "5%" }}>

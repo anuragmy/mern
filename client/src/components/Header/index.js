@@ -5,8 +5,10 @@ import { connect } from "react-redux";
 import { signOut } from "../actions";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import "./header.styles.scss";
+import Cart from "../Cart";
+import CartDropdown from "../Cart/CartDropdown";
 
-const Header = ({ token }) => {
+const Header = ({ token, cart }) => {
   const dispatch = useDispatch();
   const [signout, setSignOut] = React.useState(false);
 
@@ -37,6 +39,7 @@ const Header = ({ token }) => {
 
         {signout ? (
           <Link
+            to="/"
             onClick={() => {
               setSignOut(false);
               dispatch(signOut());
@@ -55,13 +58,16 @@ const Header = ({ token }) => {
             SIGN IN
           </Link>
         )}
+        <Cart method="hidecart" />
       </div>
+      {cart.hidden && <CartDropdown />}
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
+  cart: state.cart,
 });
 
 export default connect(mapStateToProps, null)(Header);

@@ -13,13 +13,12 @@ const MenuItems = ({ title, size, image, url }) => {
           style={{
             border: "1px solid black",
             height: 300,
-            background: `url(${image})`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
+            background: `url(${image}) center center`,
             backgroundSize: "cover",
           }}
         >
           <div
+            className="content"
             onClick={() => historty.push(`${url}`)}
             style={{
               width: 120,

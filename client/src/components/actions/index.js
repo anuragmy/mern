@@ -1,4 +1,7 @@
 import * as actionTypes from "./types";
+
+// actions
+
 import axios from "axios";
 
 export const SignedIn = (data) => ({
@@ -14,6 +17,17 @@ export const SignedInError = (data) => ({
   type: actionTypes.SIGNINERROR,
   payload: data,
 });
+
+export const toggleCart = () => ({
+  type: actionTypes.TOGGLECART,
+});
+
+export const addItem = (item) => ({
+  type: actionTypes.ADD_ITEM,
+  payload: item,
+});
+
+// thunks
 
 export const signIn = (email, password) => async (dispatch) => {
   await axios
@@ -33,7 +47,7 @@ export const signIn = (email, password) => async (dispatch) => {
     .catch((err) => dispatch(SignedInError(err)));
 };
 
-export const signUp = (email, name, password) => async (dispatch) => {
+export const signUp = (name, email, password) => async (dispatch) => {
   await axios
     .post("http://localhost:3000/api/signup", {
       email: email,

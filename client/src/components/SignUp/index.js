@@ -2,7 +2,6 @@
 import React from "react";
 import { Grid, Container, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { signUp } from "../actions";
@@ -10,7 +9,7 @@ import "tachyons";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+
   const [state, setState] = React.useState({
     email: "anuragmy2729@gmail.com",
     name: "Anurag",
@@ -25,7 +24,7 @@ const SignUp = () => {
     },
   });
 
-  const [loading, setLoading] = React.useState(true);
+  const [loading] = React.useState(false);
 
   const { errors, color, name, email, password } = state;
 
@@ -105,11 +104,6 @@ const SignUp = () => {
       dispatch(signUp(name, email, password));
     }
   };
-
-  React.useEffect(() => {
-    if (localStorage.getItem("token")) history.push("/");
-    else setLoading(false);
-  }, [history, loading]);
 
   return loading ? (
     <LinearProgress />
