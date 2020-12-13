@@ -16,6 +16,7 @@ import Sneakers from "./components/Sneakers";
 import Jackets from "./components/Jackets";
 import Mens from "./components/Mens";
 import Womens from "./components/Womens";
+import Checkout from "./components/Checkout";
 
 const Routes = ({ user, signedIn }) => {
   return (
@@ -43,6 +44,7 @@ const Routes = ({ user, signedIn }) => {
         <Route exact component={Jackets} path="/shop/jackets" />
         <Route exact component={Mens} path="/shop/mens" />
         <Route exact component={Womens} path="/shop/womens" />
+        <Route exact component={Checkout} path="/checkout" />
       </Switch>
     </Router>
   );

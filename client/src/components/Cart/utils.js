@@ -1,12 +1,10 @@
 /* eslint-disable array-callback-return */
-export const addItemToCart = (items, itemToAdd) => {
-  const itemExists = items.find((item) => item.id === itemToAdd.id);
-  if (itemExists) {
-    return items.map((item) =>
-      item.id === itemToAdd.id
-        ? { ...item, quantity: item.quantity + 1 }
-        : itemToAdd
+export const addItemToCart = (cartItems, itemToAdd) => {
+  if (cartItems.find((item) => item.id === itemToAdd.id)) {
+    return cartItems.map((item) =>
+      item.id === itemToAdd.id ? { ...item, quantity: item.quantity + 1 } : item
     );
+  } else {
+    return [...cartItems, { ...itemToAdd, quantity: 1 }];
   }
-  return [...items, { ...itemToAdd, quantity: 1 }];
 };

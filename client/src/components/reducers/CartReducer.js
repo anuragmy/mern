@@ -8,16 +8,18 @@ const initialState = {
 
 export const cartRducer = (state = initialState, action) => {
   const { payload } = action;
+  const { items, hidden } = state;
   switch (action.type) {
     case actionTypes.TOGGLECART:
       return {
         ...state,
-        hidden: !state.hidden,
+        hidden: !hidden,
       };
     case actionTypes.ADD_ITEM:
+      addItemToCart(items, payload);
       return {
         ...state,
-        items: addItemToCart(state.items, payload),
+        items: addItemToCart(items, payload),
       };
     default:
       return state;

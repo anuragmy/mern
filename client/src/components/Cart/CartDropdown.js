@@ -1,18 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import CartItem from "../CartItem";
 import "./cart-dropdown.styles.scss";
 import { CustomButton } from "../CustomButton";
 
 const CartDropdown = ({ items = [] }) => {
+  const history = useHistory();
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
-        {items.map((item) => (
-          <CartItem item={item} key={item.key} />
-        ))}
+        {items.length > 0 ? (
+          items.map((item) => <CartItem item={item} key={item.id} />)
+        ) : (
+          <span id="empty" className="empty">
+            Your Cart is empty
+          </span>
+        )}
       </div>
-      <CustomButton>CHECKOUT</CustomButton>
+      <CustomButton onClick={() => history.push("/checkout")}>
+        CHECKOUT
+      </CustomButton>
     </div>
   );
 };

@@ -33,6 +33,7 @@
     "nodemon": "^2.0.6",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "uuid": "^8.3.1"
   }
 }

@@ -5,7 +5,8 @@ import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import { addItem } from "../actions";
 import { CustomButton } from "../CustomButton";
-import { addItemToCart } from "../Cart/utils";
+// import { addItemToCart } from "../Cart/utils";
+import { selectCartItems } from "../Cart/cart-selctor";
 
 const Collections = ({ items, cartItems }) => {
   const dispatch = useDispatch();
@@ -28,7 +29,6 @@ const Collections = ({ items, cartItems }) => {
               >
                 <CustomButton
                   onClick={() => {
-                    console.log(addItemToCart(cartItems, item));
                     dispatch(addItem(item));
                   }}
                 >
@@ -58,7 +58,7 @@ const Collections = ({ items, cartItems }) => {
 };
 
 const mapStateToProps = (state) => ({
-  cartItems: state.cart.items,
+  cartItems: selectCartItems(state),
 });
 
 export default connect(mapStateToProps, null)(Collections);
