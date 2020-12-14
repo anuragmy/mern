@@ -28,16 +28,12 @@ const Routes = ({ user, signedIn }) => {
         <Route
           exact
           path="/signin"
-          render={() =>
-            localStorage.getItem("token") ? <Redirect to="/" /> : <SignIn />
-          }
+          render={() => (!signedIn ? <Redirect to="/" /> : <SignIn />)}
         />
         <Route
           exact
           path="/signup"
-          render={() =>
-            localStorage.getItem("token") ? <Redirect to="/" /> : <SignUp />
-          }
+          render={() => (signedIn ? <Redirect to="/" /> : <SignUp />)}
         />
         <Route exact component={Hats} path="/shop/hats" />
         <Route exact component={Sneakers} path="/shop/sneakers" />

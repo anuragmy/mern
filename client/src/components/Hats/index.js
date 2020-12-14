@@ -1,22 +1,14 @@
-// import React from "react";
-// import Shop from "../Shop";
+import React from "react";
 import { connect } from "react-redux";
+import Shop from "../Shop";
 
-const Hats = ({ data }) => {
-  console.log(data);
-  return "hi";
-  // const [item, setItem] = React.useState([]);
-
-  // React.useEffect(() => {
-  //   const hats = data.filter((item) => item.title === "Hats");
-  //   setItem(hats);
-  // }, [data]);
-
-  // return <Shop incomingData={item} />;
+const Hats = ({ items }) => {
+  return <Shop incomingData={items} />;
 };
 
-const mapStateToProps = ({ Initial: { data } }) => ({
-  data,
+const mapStateToProps = (state) => ({
+  items: state.Initial.data.filter((item) => item.title === "hats"),
 });
 
-export default connect(mapStateToProps, null)(Hats);
+export default connect(mapStateToProps)(Hats);
+
