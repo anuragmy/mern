@@ -27,6 +27,11 @@ export const addItem = (item) => ({
   payload: item,
 });
 
+export const removeItem = (item) => ({
+  type: actionTypes.REMOVE_ITEM,
+  payload: item,
+});
+
 // thunks
 
 export const signIn = (email, password) => async (dispatch) => {
