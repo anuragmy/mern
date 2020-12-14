@@ -81,7 +81,11 @@ const Checkout = ({ total, items = [] }) => {
     alert("Payment Success");
   };
 
-  return (
+  return !items.length ? (
+    <div className="empty-cart">
+      <p>Please Add items in Your cart</p>
+    </div>
+  ) : (
     <div className="checkout-page">
       <div className="checkout-header">
         <div className="header-block">
@@ -92,9 +96,6 @@ const Checkout = ({ total, items = [] }) => {
         </div>
         <div className="header-block">
           <span>QUANTITY</span>
-        </div>
-        <div className="header-block">
-          <span>REMOVE</span>
         </div>
       </div>
       <div style={{ width: "100%" }}>
