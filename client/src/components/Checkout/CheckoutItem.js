@@ -1,6 +1,6 @@
 import "./checkout-item.styles.scss";
-import { removeItem } from "../actions";
-import { useDispatch, connect } from "react-redux";
+import { removeItem, incQuantity, decQauntity } from "../actions";
+import { useDispatch } from "react-redux";
 
 const CheckoutItem = ({ item }) => {
   const dispatch = useDispatch();
@@ -13,9 +13,13 @@ const CheckoutItem = ({ item }) => {
       <div className="name">{name}</div>
       <div className="price">{price}</div>
       <div className="quantity">
-        <div className="arrow">&#10094;</div>
+        <div className="arrow" onClick={() => dispatch(decQauntity(item))}>
+          &#10094;
+        </div>
         <div className="value">{quantity}</div>
-        <div className="arrow">&#10095;</div>
+        <div className="arrow" onClick={() => dispatch(incQuantity(item))}>
+          &#10095;
+        </div>
       </div>
       <div className="remove-button" onClick={() => dispatch(removeItem(item))}>
         &#10005;

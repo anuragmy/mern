@@ -32,6 +32,16 @@ export const removeItem = (item) => ({
   payload: item,
 });
 
+export const incQuantity = (item) => ({
+  type: actionTypes.INC_QUANTITY,
+  payload: item,
+});
+
+export const decQauntity = (item) => ({
+  type: actionTypes.DEC_QUANTITY,
+  payload: item,
+});
+
 // thunks
 
 export const signIn = (email, password) => async (dispatch) => {
