@@ -7,6 +7,7 @@ import { persistor, store } from "../src/components/store";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import { PersistGate } from "redux-persist/integration/react";
 import reportWebVitals from "./reportWebVitals";
+import * as registerServiceWorker from "./registerServiceWorker";
 // import "semantic-ui-css/semantic.min.css";
 
 ReactDOM.render(
@@ -24,3 +25,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+registerServiceWorker.register();

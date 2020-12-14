@@ -1,7 +1,7 @@
 const { createOrder } = require("../controllers/orders");
-const { requireSignIn, isAuth } = require("../controllers/auth");
 const router = require("express").Router();
+const { requireSignIn, isAuth } = require("../controllers/auth");
 
-router.post("/order", requireSignIn, isAuth, createOrder);
+router.post("/order", createOrder);
 
 module.exports = router;

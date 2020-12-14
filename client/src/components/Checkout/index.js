@@ -2,17 +2,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import { message } from "antd";
-import Alert from "@material-ui/lab/Alert";
-
-import { Link } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import "./checkout.styles.scss";
 import CheckoutItem from "./CheckoutItem";
 import Crown from "../../assets/crown.svg";
 import { CustomButton } from "../CustomButton";
 
-const Checkout = ({ total, items = [], auth }) => {
+const Checkout = ({ total, items = [] }) => {
   const [order, setOrder] = React.useState("");
   const [amount, setAmount] = React.useState("");
   const key =
@@ -31,8 +27,6 @@ const Checkout = ({ total, items = [], auth }) => {
       document.body.appendChild(script);
     });
   };
-
-  const showAlert = () => message.warning("Please Sign In to make payment");
 
   const showRazorpay = async () => {
     await loadRazorpay();
@@ -87,7 +81,11 @@ const Checkout = ({ total, items = [], auth }) => {
     alert("Payment Success");
   };
 
-  return (
+  return !items.length ? (
+    <div className="empty-cart">
+      <p>Please Add items in Your cart</p>
+    </div>
+  ) : (
     <div className="checkout-page">
       <div className="checkout-header">
         <div className="header-block">
@@ -98,9 +96,6 @@ const Checkout = ({ total, items = [], auth }) => {
         </div>
         <div className="header-block">
           <span>QUANTITY</span>
-        </div>
-        <div className="header-block">
-          <span>REMOVE</span>
         </div>
       </div>
       <div style={{ width: "100%" }}>
@@ -119,7 +114,7 @@ const Checkout = ({ total, items = [], auth }) => {
         }}
       >
         <CustomButton
-          onClick={() => (auth.token ? showRazorpay() : showAlert())}
+          onClick={showRazorpay}
           style={{ marginTop: 30, marginBottom: 30 }}
         >
           PROCEED TO PAY
@@ -145,10 +140,9 @@ const Checkout = ({ total, items = [], auth }) => {
   );
 };
 
-const mpaStateToProps = ({ cart: { items }, auth }) => ({
+const mpaStateToProps = ({ cart: { items } }) => ({
   total: items.reduce((acc, item) => acc + item.quantity * item.price, 0),
   items,
-  auth,
 });
 
 export default connect(mpaStateToProps, null)(Checkout);

@@ -20,6 +20,8 @@
   .quantity,
   .price {
     width: 100%;
+    text-align: center;
+
     padding-left: 10px;
   }
 
@@ -35,7 +37,9 @@
   }
 
   .remove-button {
-    padding-right: 12px;
+    padding-left: 20px;
+    text-align: left;
+
     cursor: pointer;
   }
 }

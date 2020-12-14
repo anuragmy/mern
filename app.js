@@ -11,7 +11,8 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const catagoryRoutes = require("./routes/catagory");
 const productRoutes = require("./routes/product");
-const orderRoute = require("./routes/orders");
+const orderRoutes = require("./routes/orders");
+
 
 const port = process.env.PORT || 3001;
 
@@ -28,6 +29,7 @@ app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", catagoryRoutes);
 app.use("/api", productRoutes);
-app.use("/api", orderRoute);
+app.use("/api", orderRoutes);
+
 
 app.listen(port, () => `server running on ${port}`);
