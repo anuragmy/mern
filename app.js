@@ -13,6 +13,7 @@ const catagoryRoutes = require("./routes/catagory");
 const productRoutes = require("./routes/product");
 const orderRoutes = require("./routes/orders");
 
+
 const port = process.env.PORT || 3001;
 
 // middlewares
@@ -29,5 +30,6 @@ app.use("/api", userRoutes);
 app.use("/api", catagoryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", orderRoutes);
+
 
 app.listen(port, () => `server running on ${port}`);

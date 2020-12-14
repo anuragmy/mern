@@ -21,9 +21,14 @@ const reducers = combineReducers({
   Initial,
 });
 
+const middlewares = [thunk];
+if (process.env.NODE_ENV === "developemnt") {
+  middlewares.push(Logger);
+}
+
 export const store = createStore(
   persistReducer(persistConfig, reducers),
-  composeWithDevTools(applyMiddleware(Logger, thunk))
+  composeWithDevTools(applyMiddleware(...middlewares))
 );
 
 export const persistor = persistStore(store);

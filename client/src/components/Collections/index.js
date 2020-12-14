@@ -34,9 +34,6 @@ const Collections = ({ items, cartItems }) => {
                 >
                   ADD TO CART
                 </CustomButton>
-                {/* <AddToCart >
-                  ADD TO CART
-                </AddToCart> */}
               </div>
             </div>
             <div
