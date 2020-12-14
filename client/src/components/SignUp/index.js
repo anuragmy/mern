@@ -11,10 +11,10 @@ const SignUp = () => {
   const dispatch = useDispatch();
 
   const [state, setState] = React.useState({
-    email: "anuragmy2729@gmail.com",
-    name: "Anurag",
-    password: "Anurag",
-    confirmPassword: "Anurag",
+    email: "",
+    name: "",
+    password: "",
+    confirmPassword: "",
     errors: [],
     color: {
       email: "black",

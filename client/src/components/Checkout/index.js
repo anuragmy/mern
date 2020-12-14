@@ -1,13 +1,18 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import { message } from "antd";
+import Alert from "@material-ui/lab/Alert";
+
+import { Link } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import "./checkout.styles.scss";
 import CheckoutItem from "./CheckoutItem";
 import Crown from "../../assets/crown.svg";
 import { CustomButton } from "../CustomButton";
 
-const Checkout = ({ total, items = [] }) => {
+const Checkout = ({ total, items = [], auth }) => {
   const [order, setOrder] = React.useState("");
   const [amount, setAmount] = React.useState("");
   const key =
@@ -26,6 +31,8 @@ const Checkout = ({ total, items = [] }) => {
       document.body.appendChild(script);
     });
   };
+
+  const showAlert = () => message.warning("Please Sign In to make payment");
 
   const showRazorpay = async () => {
     await loadRazorpay();
@@ -112,7 +119,7 @@ const Checkout = ({ total, items = [] }) => {
         }}
       >
         <CustomButton
-          onClick={showRazorpay}
+          onClick={() => (auth.token ? showRazorpay() : showAlert())}
           style={{ marginTop: 30, marginBottom: 30 }}
         >
           PROCEED TO PAY
@@ -138,9 +145,10 @@ const Checkout = ({ total, items = [] }) => {
   );
 };
 
-const mpaStateToProps = ({ cart: { items } }) => ({
+const mpaStateToProps = ({ cart: { items }, auth }) => ({
   total: items.reduce((acc, item) => acc + item.quantity * item.price, 0),
   items,
+  auth,
 });
 
 export default connect(mpaStateToProps, null)(Checkout);

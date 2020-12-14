@@ -46,7 +46,7 @@ export const decQauntity = (item) => ({
 
 export const signIn = (email, password) => async (dispatch) => {
   await axios
-    .post("http://localhost:3001/api/sign-in", {
+    .post("/api/sign-in", {
       email: email,
       password: password,
     })
