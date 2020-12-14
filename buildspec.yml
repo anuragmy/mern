@@ -5,6 +5,5 @@ phases:
     commands:
       - npm install
       - npm run install-client
-      - npm run dev
 
       - pip install --upgrade awscli
