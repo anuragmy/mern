@@ -1,10 +1,10 @@
 version: 0.2
 
-phases: 
+phases:
   install:
     commands:
       - npm install
       - npm run install-client
       - npm run dev
 
-      -pip install --upgrade awscli
+      - pip install --upgrade awscli
