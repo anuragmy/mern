@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Container, Grid } from "@material-ui/core";
-import SHOP_DATA from "./data";
+import SHOP_DATA from "../../data/data";
 import Collections from "../Collections";
 
 const Shop = ({ incomingData }) => {

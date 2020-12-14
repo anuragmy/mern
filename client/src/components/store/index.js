@@ -7,6 +7,7 @@ import Logger from "redux-logger";
 import thunk from "redux-thunk";
 import { checkSignedIn } from "../reducers/authReducers";
 import { cartRducer } from "../reducers/CartReducer";
+import Initial from "../reducers/initial";
 
 const persistConfig = {
   key: "root",
@@ -17,6 +18,7 @@ const persistConfig = {
 const reducers = combineReducers({
   auth: checkSignedIn,
   cart: cartRducer,
+  Initial,
 });
 
 export const store = createStore(

@@ -1,5 +1,5 @@
 import React from "react";
-import DATA from "../Shop/data";
+import DATA from "../../data/data";
 import Shop from "../Shop";
 
 const Sneakers = () => {
