@@ -46,7 +46,7 @@ export const decQauntity = (item) => ({
 
 export const signIn = (email, password) => async (dispatch) => {
   await axios
-    .post("http://localhost:3000/api/sign-in", {
+    .post("http://localhost:3001/api/sign-in", {
       email: email,
       password: password,
     })
@@ -64,7 +64,7 @@ export const signIn = (email, password) => async (dispatch) => {
 
 export const signUp = (name, email, password) => async (dispatch) => {
   await axios
-    .post("http://localhost:3000/api/signup", {
+    .post("http://localhost:3001/api/signup", {
       email: email,
       password: password,
       name: name,

@@ -31,10 +31,6 @@ const SignIn = ({ loading, user }) => {
     dispatch(signIn(email, password));
   };
 
-  // React.useEffect(() => {
-  //   if (localStorage.getItem("token")) return history.push("/");
-  // }, [history, user]);
-
   return (
     <Container style={{ marginTop: "5%" }}>
       <Grid
@@ -132,9 +128,5 @@ const mapStateToProps = (state) => ({
   loading: state.auth.authLoading,
   user: state.auth.token,
 });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   signIn: () => dispatch(signIn()),
-// });
 
 export default connect(mapStateToProps, null)(SignIn);
