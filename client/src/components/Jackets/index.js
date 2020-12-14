@@ -1,16 +1,13 @@
 import React from "react";
-import DATA from "../../data/data";
+import { connect } from "react-redux";
 import Shop from "../Shop";
 
-const Jackets = () => {
-  const [data, setData] = React.useState([]);
-
-  React.useEffect(() => {
-    const hats = DATA.filter((data) => data.title === "Jackets");
-    setData(hats);
-  }, []);
-
-  return <Shop incomingData={data} />;
+const Jackets = ({ items }) => {
+  return <Shop incomingData={items} />;
 };
 
-export default Jackets;
+const mapStateToProps = (state) => ({
+  items: state.Initial.data.filter((item) => item.title === "jackets"),
+});
+
+export default connect(mapStateToProps)(Jackets);
