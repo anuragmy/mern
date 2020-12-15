@@ -17,24 +17,30 @@ import Jackets from "./components/Jackets";
 import Mens from "./components/Mens";
 import Womens from "./components/Womens";
 import Checkout from "./components/Checkout";
+import Dashboard from "./components/Dashboard";
+import Profile from "./components/Profile";
+import AddCatagory from "./components/AddCatagory";
+import PrivateRoute from "./privateRoute";
+import AdminRoute from "./AdminRoute";
+import Admin from "./components/Admin";
 
-const Routes = ({ user, signedIn }) => {
+const Routes = ({ token, admin }) => {
   return (
     <Router>
       <Header />
       <Switch>
+        <AdminRoute exact component={Admin} path="/admin" />
+        <AdminRoute exact component={AddCatagory} path="/admin/add-catagory" />
+        <PrivateRoute exact component={Dashboard} path="/dashboard" />
+        <PrivateRoute exact component={Profile} path="/user/profile" />
         <Route exact component={Home} path="/" />
         <Route exact component={Shop} path="/shop" />
         <Route
           exact
+          render={() => (token ? <Redirect to="/dashboard" /> : <SignIn />)}
           path="/signin"
-          render={() => (!signedIn ? <Redirect to="/" /> : <SignIn />)}
         />
-        <Route
-          exact
-          path="/signup"
-          render={() => (signedIn ? <Redirect to="/" /> : <SignUp />)}
-        />
+        <Route exact component={SignUp} path="/signup" />
         <Route exact component={Hats} path="/shop/hats" />
         <Route exact component={Sneakers} path="/shop/sneakers" />
         <Route exact component={Jackets} path="/shop/jackets" />
@@ -48,7 +54,8 @@ const Routes = ({ user, signedIn }) => {
 
 const mapStateToProps = (state) => ({
   signedIn: state.auth.signedIn,
-  user: state.auth.user,
+  token: state.auth.token,
+  admin: state.auth.user,
 });
 
 export default connect(mapStateToProps, null)(Routes);

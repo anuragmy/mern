@@ -9,27 +9,18 @@ import { signIn } from "../actions";
 // import GoogleLogin from "react-google-login";
 import "tachyons";
 
-const SignIn = ({ loading, user }) => {
+const AddCatagory = ({ loading, user }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setLoading] = useState(false);
-  const [errors, setErrors] = useState([]);
+  const [type, setType] = useState();
+  const [error, setError] = useState();
+  const [success, setSuccess] = useState(false);
 
-  const changePassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const changeEmail = (e) => {
-    setEmail(e.target.value);
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    if (!email || !password)
-      return setErrors(errors.concat({ err: "All Fields Required" }));
-    dispatch(signIn(email, password));
+    console.log("submit");
   };
+  const handleChange = (e) => setType(e.target.value);
 
   return (
     <Container style={{ marginTop: "5%" }}>
@@ -38,15 +29,13 @@ const SignIn = ({ loading, user }) => {
         xs={12}
         style={{ width: 500, marginLeft: "auto", marginRight: "auto" }}
       >
-        <h1>Have an account ?</h1>
-        <h3 style={{ fontWeight: "lighter" }}>
-          Sign In wth your email and password
-        </h3>
+        <h1>Add Catagory</h1>
+
         <form onSubmit={handleSubmit}>
-          <label style={{ fontSize: 20, fontWeight: "bolder" }}>Email</label>
+          <label style={{ fontSize: 20, fontWeight: "bolder" }}>Catagory</label>
           <br />
           <input
-            type="email"
+            type="text"
             style={{
               border: "none",
               borderBottom: "1px solid black",
@@ -55,26 +44,12 @@ const SignIn = ({ loading, user }) => {
               fontSize: 20,
               width: "80%",
             }}
-            value={email}
-            onChange={changeEmail}
+            value={type}
+            onChange={handleChange}
           />
           <br />
           <br />
-          <label style={{ fontSize: 20, fontWeight: "bolder" }}>Password</label>
-          <br />
-          <input
-            type="password"
-            style={{
-              border: "none",
-              borderBottom: "1px solid black",
-              paddingTop: 20,
-              marginBottom: 20,
-              fontSize: 20,
-              width: "80%",
-            }}
-            value={password}
-            onChange={changePassword}
-          />
+
           <br />
 
           <a
@@ -88,7 +63,7 @@ const SignIn = ({ loading, user }) => {
             onClick={handleSubmit}
           >
             <span className="pl1" style={{ fontSize: 20 }}>
-              Sign In
+              Add
             </span>
           </a>
           <a
@@ -98,20 +73,14 @@ const SignIn = ({ loading, user }) => {
               cursor: "pointer",
               textAlign: "center",
             }}
-            className="f5 no-underline black bg-animate hover-bg-blue hover-white inline-flex items-center pa3 ba border-box mr4"
-            onClick={handleSubmit}
+            className="f5 no-underline black bg-animate hover-bg-black hover-white inline-flex items-center pa3 ba border-box mr4"
+            onClick={() => history.push("/admin")}
           >
             <span className="pl1" style={{ fontSize: 20 }}>
-              Sign In with Google
+              Cancel
             </span>
           </a>
         </form>
-        <h3>
-          Dont' have an account?{" "}
-          <Link to="/signup" style={{ color: "black" }}>
-            Sign Up
-          </Link>
-        </h3>
       </Grid>
       <style jsx="true">
         {`
@@ -129,4 +98,4 @@ const mapStateToProps = (state) => ({
   user: state.auth.token,
 });
 
-export default connect(mapStateToProps, null)(SignIn);
+export default connect(mapStateToProps, null)(AddCatagory);

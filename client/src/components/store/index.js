@@ -12,7 +12,7 @@ import Initial from "../reducers/initial";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart"],
+  whitelist: ["cart", "auth"],
 };
 
 const reducers = combineReducers({

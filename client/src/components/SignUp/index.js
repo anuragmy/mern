@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Container, LinearProgress } from "@material-ui/core";
+import { connect } from "react-redux";
 import { Alert } from "@material-ui/lab";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { signUp } from "../actions";
 import "tachyons";
 
-const SignUp = () => {
+const SignUp = ({ user }) => {
   const dispatch = useDispatch();
 
   const [state, setState] = React.useState({
@@ -236,4 +237,8 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+const mapStateToProps = ({ auth: { signedIn } }) => ({
+  user: signedIn,
+});
+
+export default connect(mapStateToProps)(SignUp);
