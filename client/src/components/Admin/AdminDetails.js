@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { CustomButton } from "../CustomButton";
 import "./user.styles.scss";
 
 export const UserDetails = ({ user }) => {
+  const history = useHistory();
   const { name, email } = user;
   return (
     <>
@@ -11,7 +12,9 @@ export const UserDetails = ({ user }) => {
         <div className="price">{email}</div>
       </div>
       <div className="actions">
-        <CustomButton>Add Catagory</CustomButton>
+        <CustomButton onClick={() => history.push("/admin/add-catagory")}>
+          Add Catagory
+        </CustomButton>
         <CustomButton>Add Product</CustomButton>
       </div>
     </>
