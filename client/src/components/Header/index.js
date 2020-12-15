@@ -36,8 +36,17 @@ const Header = ({ token, cart }) => {
         >
           SHOP
         </Link>
+        {token && (
+          <Link
+            to="/dashboard"
+            className="option"
+            style={{ textDecoration: "none", color: "black", fontSize: "bold" }}
+          >
+            DASHBOARD
+          </Link>
+        )}
 
-        {signout ? (
+        {token ? (
           <Link
             to="/"
             onClick={() => {

@@ -2,13 +2,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import { message } from "antd";
 import StripeCheckout from "react-stripe-checkout";
 import "./checkout.styles.scss";
 import CheckoutItem from "./CheckoutItem";
 import Crown from "../../assets/crown.svg";
 import { CustomButton } from "../CustomButton";
 
-const Checkout = ({ total, items = [] }) => {
+const Checkout = ({ total, items = [], signedIn }) => {
   const [order, setOrder] = React.useState("");
   const [amount, setAmount] = React.useState("");
   const key =
@@ -81,6 +82,8 @@ const Checkout = ({ total, items = [] }) => {
     alert("Payment Success");
   };
 
+  const alertMesage = () => message.warn("Please sign in before payment");
+
   return !items.length ? (
     <div className="empty-cart">
       <p>Please Add items in Your cart</p>
@@ -140,9 +143,10 @@ const Checkout = ({ total, items = [] }) => {
   );
 };
 
-const mpaStateToProps = ({ cart: { items } }) => ({
+const mpaStateToProps = ({ cart: { items }, auth: { signedIn } }) => ({
   total: items.reduce((acc, item) => acc + item.quantity * item.price, 0),
   items,
+  signedIn,
 });
 
 export default connect(mpaStateToProps, null)(Checkout);
