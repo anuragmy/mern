@@ -1,4 +1,3 @@
-import React from "react";
 import { useHistory } from "react-router";
 import { Grid } from "@material-ui/core";
 import "./menu-item.styles.scss";

@@ -37,6 +37,7 @@ const Routes = ({ token, admin }) => {
           exact
           render={() => (token ? <Redirect to="/dashboard" /> : <SignIn />)}
           path="/signin"
+
         />
         <Route exact component={SignUp} path="/signup" />
         <Route exact component={Hats} path="/shop/hats" />
