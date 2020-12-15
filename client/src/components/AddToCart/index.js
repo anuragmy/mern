@@ -1,6 +1,4 @@
-import React from "react";
-
-const AddtoCart = () => (
+const AddtoCart = ({ children }) => (
   <>
     <div
       className="cart-button"
@@ -18,7 +16,7 @@ const AddtoCart = () => (
         cursor: "pointer",
       }}
     >
-      ADD TO CART
+      {children}
     </div>
   </>
 );

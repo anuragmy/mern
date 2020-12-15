@@ -1,12 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { Grid, Container, Snackbar } from "@material-ui/core";
+import { Grid, Container, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { signUp } from "../actions";
 import "tachyons";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+
   const [state, setState] = React.useState({
     email: "",
     name: "",
@@ -21,31 +24,12 @@ const SignUp = () => {
     },
   });
 
+  const [loading] = React.useState(false);
+
   const { errors, color, name, email, password } = state;
 
   const handleChange = (e) =>
     setState({ ...state, [e.target.name]: e.target.value });
-
-  const showResponse = (type) => {
-    switch (type) {
-      case "SUCCESS": {
-        return (
-          <Snackbar open autoHideDuration={3000}>
-            <Alert severity="success">This is a success message!</Alert>
-          </Snackbar>
-        );
-      }
-      default: {
-        return (
-          <Snackbar open autoHideDuration={3000}>
-            <Alert severity="Error">
-              Seems like you've already signed in, Please login to continue
-            </Alert>
-          </Snackbar>
-        );
-      }
-    }
-  };
 
   const checkErrors = () => {
     const { name, email, password, confirmPassword } = state;
@@ -117,14 +101,13 @@ const SignUp = () => {
           confirmPassword: "black",
         },
       });
-      axios
-        .post("http://localhost:3000/api/signup", { name, email, password })
-        .then(() => showResponse("SUCCESS"))
-        .catch(() => showResponse("FAILURE"));
+      dispatch(signUp(name, email, password));
     }
   };
 
-  return (
+  return loading ? (
+    <LinearProgress />
+  ) : (
     <Container style={{ marginTop: "5%" }}>
       <Grid
         item

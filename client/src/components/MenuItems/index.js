@@ -1,8 +1,9 @@
-import React from "react";
+import { useHistory } from "react-router";
 import { Grid } from "@material-ui/core";
 import "./menu-item.styles.scss";
 
-const MenuItems = ({ title, size, image }) => {
+const MenuItems = ({ title, size, image, url }) => {
+  const historty = useHistory();
   return (
     <Grid item xs={12} sm={6} md={size === "large" ? 6 : 4}>
       <div className="item">
@@ -11,13 +12,13 @@ const MenuItems = ({ title, size, image }) => {
           style={{
             border: "1px solid black",
             height: 300,
-            background: `url(${image})`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
+            background: `url(${image}) center center`,
             backgroundSize: "cover",
           }}
         >
           <div
+            className="content"
+            onClick={() => historty.push(`${url}`)}
             style={{
               width: 120,
               border: "1px solid black",

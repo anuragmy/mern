@@ -1,8 +1,9 @@
 const SHOP_DATA = [
   {
+    title: "hats",
+    imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
     id: 1,
-    title: "Hats",
-    routeName: "hats",
+    linkUrl: "/shop/hats",
     items: [
       {
         id: 1,
@@ -61,9 +62,10 @@ const SHOP_DATA = [
     ],
   },
   {
-    id: 2,
-    title: "Sneakers",
-    routeName: "sneakers",
+    title: "sneakers",
+    imageUrl: "https://i.ibb.co/0jqHpnp/sneakers.png",
+    id: 3,
+    linkUrl: "/shop/sneakers",
     items: [
       {
         id: 10,
@@ -116,9 +118,10 @@ const SHOP_DATA = [
     ],
   },
   {
-    id: 3,
-    title: "Jackets",
-    routeName: "jackets",
+    title: "jackets",
+    imageUrl: "https://i.ibb.co/px2tCc3/jackets.png",
+    id: 2,
+    linkUrl: "/shop/jackets",
     items: [
       {
         id: 18,
@@ -153,9 +156,11 @@ const SHOP_DATA = [
     ],
   },
   {
+    title: "womens",
+    imageUrl: "https://i.ibb.co/GCCdy8t/womens.png",
+    size: "large",
     id: 4,
-    title: "Womens",
-    routeName: "womens",
+    linkUrl: "/shop/womens",
     items: [
       {
         id: 23,
@@ -202,9 +207,11 @@ const SHOP_DATA = [
     ],
   },
   {
+    title: "mens",
+    imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
+    size: "large",
     id: 5,
-    title: "Mens",
-    routeName: "mens",
+    linkUrl: "/shop/mens",
     items: [
       {
         id: 30,

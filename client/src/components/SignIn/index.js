@@ -1,12 +1,20 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import { Grid, Container } from "@material-ui/core";
+import { Redirect, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { useDispatch, connect } from "react-redux";
+import { signIn } from "../actions";
+// import GoogleLogin from "react-google-login";
 import "tachyons";
-const SignIn = () => {
+
+const SignIn = ({ loading, user }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
 
   const changePassword = (e) => {
@@ -17,12 +25,12 @@ const SignIn = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (!email || !password)
       return setErrors(errors.concat({ err: "All Fields Required" }));
-    await axios
-      .post("/sign-in", { email, password })
-      .then((res) => console.log("signed in", res));
+    dispatch(signIn(email, password));
   };
+
   return (
     <Container style={{ marginTop: "5%" }}>
       <Grid
@@ -42,7 +50,7 @@ const SignIn = () => {
             style={{
               border: "none",
               borderBottom: "1px solid black",
-              padding: 10,
+              paddingTop: 20,
               marginBottom: 20,
               fontSize: 20,
               width: "80%",
@@ -59,7 +67,7 @@ const SignIn = () => {
             style={{
               border: "none",
               borderBottom: "1px solid black",
-              padding: 10,
+              paddingTop: 20,
               marginBottom: 20,
               fontSize: 20,
               width: "80%",
@@ -116,4 +124,9 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+const mapStateToProps = (state) => ({
+  loading: state.auth.authLoading,
+  user: state.auth.token,
+});
+
+export default connect(mapStateToProps, null)(SignIn);
