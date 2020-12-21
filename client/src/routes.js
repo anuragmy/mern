@@ -21,7 +21,7 @@ import Checkout from "./components/Checkout";
 const Routes = ({ user, signedIn }) => {
   return (
     <Router>
-      <Header />
+
       <Switch>
         <Route exact component={Home} path="/" />
         <Route exact component={Shop} path="/shop" />
