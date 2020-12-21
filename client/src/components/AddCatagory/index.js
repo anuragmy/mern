@@ -77,7 +77,7 @@ const AddCatagory = ({ loading, user, user_id = "" }) => {
             onClick={() => history.push("/admin")}
           >
             <span className="pl1" style={{ fontSize: 20 }}>
-              Cancel
+              Back
             </span>
           </a>
         </form>
@@ -97,6 +97,7 @@ const mapStateToProps = (state) => ({
   loading: state.auth.authLoading,
   user: state.auth.token,
   user_id: state.auth.user._id,
+  err: state.catagody,
 });
 
 export default connect(mapStateToProps, null)(AddCatagory);

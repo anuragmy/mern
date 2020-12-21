@@ -27,6 +27,11 @@ export const addItem = (item) => ({
   payload: item,
 });
 
+export const addItemErorr = (error) => ({
+  type: actionTypes.ADD_ITEM,
+  payload: error,
+});
+
 export const removeItem = (item) => ({
   type: actionTypes.REMOVE_ITEM,
   payload: item,
@@ -104,13 +109,9 @@ export const addCatagory = (data, token, user_id) => async (dispatch) => {
   await axios
     .post(`/api/catagory/create/${user_id}`, { name: data }, config)
     .then((res) => {
-      console.log("res", res.data);
-      if (res.data && res.status === 200) {
-        console.log("cat added");
-      }
-      if (res.data && res.status === 400) {
-        console.log("err");
+      if (res.status === 400) {
+        return dispatch(addItemErorr(res.data.err));
       }
     })
-    .catch((err) => dispatch(SignedInError(err)));
+    .catch((err) => dispatch(addItemErorr(err)));
 };

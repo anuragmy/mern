@@ -18,7 +18,12 @@ export const UserDetails = ({ user }) => {
         >
           Add Catagory
         </CustomButton>
-        <CustomButton style={{ margin: 20 }}>Add Product</CustomButton>
+        <CustomButton
+          onClick={() => history.push("/admin/product")}
+          style={{ margin: 20 }}
+        >
+          Add Product
+        </CustomButton>
       </div>
     </>
   );

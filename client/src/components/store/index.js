@@ -7,6 +7,7 @@ import Logger from "redux-logger";
 import thunk from "redux-thunk";
 import { checkSignedIn } from "../reducers/authReducers";
 import { cartRducer } from "../reducers/CartReducer";
+import { catagoryReducer } from "../reducers/catagoryReducer";
 import Initial from "../reducers/initial";
 
 const persistConfig = {
@@ -18,6 +19,7 @@ const persistConfig = {
 const reducers = combineReducers({
   auth: checkSignedIn,
   cart: cartRducer,
+  catagory: catagoryReducer,
   Initial,
 });
 

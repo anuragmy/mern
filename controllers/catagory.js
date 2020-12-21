@@ -6,8 +6,9 @@ exports.createCatagory = (req, res) => {
   const catagory = new Catagory(req.body);
   catagory.save((err, data) => {
     if (err) {
-      return res.status(400).json({
+      return res.status(200).json({
         err: errorHandler(err),
+        statusCode: 400,
       });
     }
     res.status(200).json({ data });
