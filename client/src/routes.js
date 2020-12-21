@@ -19,6 +19,7 @@ import Womens from "./components/Womens";
 import Checkout from "./components/Checkout";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
+import AddCatagory from "./components/AddCatagory";
 import PrivateRoute from "./privateRoute";
 import AdminRoute from "./AdminRoute";
 import Admin from "./components/Admin";
@@ -29,6 +30,7 @@ const Routes = ({ token, admin }) => {
       <Header />
       <Switch>
         <AdminRoute exact component={Admin} path="/admin" />
+        <AdminRoute exact component={AddCatagory} path="/admin/add-catagory" />
         <PrivateRoute exact component={Dashboard} path="/dashboard" />
         <PrivateRoute exact component={Profile} path="/user/profile" />
         <Route exact component={Home} path="/" />
@@ -37,9 +39,12 @@ const Routes = ({ token, admin }) => {
           exact
           render={() => (token ? <Redirect to="/dashboard" /> : <SignIn />)}
           path="/signin"
-
         />
-        <Route exact component={SignUp} path="/signup" />
+        <Route
+          exact
+          render={() => (token ? <Redirect to="/dashboard" /> : <SignUp />)}
+          path="/signup"
+        />
         <Route exact component={Hats} path="/shop/hats" />
         <Route exact component={Sneakers} path="/shop/sneakers" />
         <Route exact component={Jackets} path="/shop/jackets" />

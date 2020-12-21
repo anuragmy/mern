@@ -51,7 +51,6 @@ export const signIn = (email, password) => async (dispatch) => {
       password: password,
     })
     .then((res) => {
-      console.log("res", res.data);
       if (res.data && res.data.user) {
         localStorage.setItem("token", res.data.token);
         return dispatch(
@@ -64,7 +63,7 @@ export const signIn = (email, password) => async (dispatch) => {
 
 export const signUp = (name, email, password) => async (dispatch) => {
   await axios
-    .post("http://localhost:3001/api/signup", {
+    .post("/api/signup", {
       email: email,
       password: password,
       name: name,
@@ -83,7 +82,7 @@ export const signUp = (name, email, password) => async (dispatch) => {
 
 export const signOut = () => async (dispatch) => {
   await axios
-    .get("http://localhost:3000/api/signout")
+    .get("/api/signout")
     .then((res) => {
       console.log("res", res.data);
       if (res.data) {
@@ -91,6 +90,26 @@ export const signOut = () => async (dispatch) => {
         return dispatch(
           SignedIn({ user: res.data.user, token: res.data.token })
         );
+      }
+    })
+    .catch((err) => dispatch(SignedInError(err)));
+};
+
+export const addCatagory = (data, token, user_id) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  await axios
+    .post(`/api/catagory/create/${user_id}`, { name: data }, config)
+    .then((res) => {
+      console.log("res", res.data);
+      if (res.data && res.status === 200) {
+        console.log("cat added");
+      }
+      if (res.data && res.status === 400) {
+        console.log("err");
       }
     })
     .catch((err) => dispatch(SignedInError(err)));
