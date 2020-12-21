@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Container, Grid } from "@material-ui/core";
+import { useDispatch } from 'react-redux'
 import { Form, Input, Button, Checkbox, Select } from "antd";
 import { CustomButton } from "../CustomButton";
+import { addProd } from '../actions'
 
 const AddProduct = () => {
   const [state, setState] = React.useState({
@@ -55,6 +57,8 @@ const AddProduct = () => {
     );
   }
 
+
+
   return (
     <div>
       <Container>
@@ -89,21 +93,24 @@ const AddProduct = () => {
                 <Input onChange={handleChange("price")} />
 
               </Form.Item>
+              <Form.Item label="Quantity" name="quantity">
+                <Input onChange={handleChange("quantity")} />
+              </Form.Item>
+
               <Form.Item label="Catagory">
                 <Select
                   mode="multiple"
                   allowClear
                   style={{ width: "100%" }}
                   placeholder="Please select"
-                  defaultValue={["a10", "c12"]}
                   onChange={handleChange}
                 >
-                  {children}
+                  <Option key='hats'>hats</Option>
+                  <Option key='sneakers'>sneakers</Option>
+                  <Option key='mens'>mens</Option>
+                  <Option key='womens'>womens</Option>
+                  <Option key='jackets'>jackets</Option>
                 </Select>
-              </Form.Item>
-              <Form.Item label="Quantity" name="quantity">
-                <Input onChange={handleChange} />
-
               </Form.Item>
 
               <Form.Item label="Shipping" name="shipping">

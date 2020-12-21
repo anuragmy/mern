@@ -3,6 +3,7 @@ import * as actionTypes from "./types";
 // actions
 
 import axios from "axios";
+import { message } from "antd";
 
 export const SignedIn = (data) => ({
   type: actionTypes.SIGNEDIN,
@@ -46,6 +47,12 @@ export const decQauntity = (item) => ({
   type: actionTypes.DEC_QUANTITY,
   payload: item,
 });
+
+export const addProductByAdmin = (item) => ({
+  type: actionTypes.ADD_PRODUCT_ADMIN,
+  payload: item,
+});
+
 
 // thunks
 
@@ -109,6 +116,27 @@ export const addCatagory = (data, token, user_id) => async (dispatch) => {
   await axios
     .post(`/api/catagory/create/${user_id}`, { name: data }, config)
     .then((res) => {
+      if (res.status === 400) {
+        return dispatch(addItemErorr(res.data.err));
+      }
+    })
+    .catch((err) => dispatch(addItemErorr(err)));
+};
+
+
+
+export const addProd = (data, token, user_id) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  await axios
+    .post(`/api//product/create/${user_id}`, { data }, config)
+    .then((res) => {
+      if (res === 200) {
+        return message.success('Product Added!!')
+      }
       if (res.status === 400) {
         return dispatch(addItemErorr(res.data.err));
       }
