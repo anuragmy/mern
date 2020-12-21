@@ -27,6 +27,11 @@ export const addItem = (item) => ({
   payload: item,
 });
 
+export const addItemErorr = (error) => ({
+  type: actionTypes.ADD_ITEM,
+  payload: error,
+});
+
 export const removeItem = (item) => ({
   type: actionTypes.REMOVE_ITEM,
   payload: item,
@@ -51,7 +56,6 @@ export const signIn = (email, password) => async (dispatch) => {
       password: password,
     })
     .then((res) => {
-      console.log("res", res.data);
       if (res.data && res.data.user) {
         localStorage.setItem("token", res.data.token);
         return dispatch(
@@ -64,7 +68,7 @@ export const signIn = (email, password) => async (dispatch) => {
 
 export const signUp = (name, email, password) => async (dispatch) => {
   await axios
-    .post("http://localhost:3001/api/signup", {
+    .post("/api/signup", {
       email: email,
       password: password,
       name: name,
@@ -83,7 +87,7 @@ export const signUp = (name, email, password) => async (dispatch) => {
 
 export const signOut = () => async (dispatch) => {
   await axios
-    .get("http://localhost:3000/api/signout")
+    .get("/api/signout")
     .then((res) => {
       console.log("res", res.data);
       if (res.data) {
@@ -94,4 +98,20 @@ export const signOut = () => async (dispatch) => {
       }
     })
     .catch((err) => dispatch(SignedInError(err)));
+};
+
+export const addCatagory = (data, token, user_id) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  await axios
+    .post(`/api/catagory/create/${user_id}`, { name: data }, config)
+    .then((res) => {
+      if (res.status === 400) {
+        return dispatch(addItemErorr(res.data.err));
+      }
+    })
+    .catch((err) => dispatch(addItemErorr(err)));
 };

@@ -7,6 +7,7 @@ import { addItem } from "../actions";
 import { CustomButton } from "../CustomButton";
 // import { addItemToCart } from "../Cart/utils";
 import { selectCartItems } from "../Cart/cart-selctor";
+import "./collection-item.styles.scss";
 
 const Collections = ({ items, cartItems }) => {
   const dispatch = useDispatch();
@@ -16,9 +17,9 @@ const Collections = ({ items, cartItems }) => {
       <Grid item container spacing={2}>
         {items.map((item) => (
           <Grid item xs={12} sm={6} md={3} key={item.id}>
-            <div className="main">
+            <div className="collection-item">
               <div
-                className="background"
+                className="image"
                 style={{
                   height: 400,
                   background: `url(${item.imageUrl})`,
@@ -36,16 +37,11 @@ const Collections = ({ items, cartItems }) => {
                 </CustomButton>
               </div>
             </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <h3 style={{ fontWeight: "lighter" }}>
-                {item.name.toUpperCase()}{" "}
-              </h3>
-              <h3 style={{ fontWeight: "lighter" }}>&#x20B9; {item.price}</h3>
+            <div className="collection-footer">
+              <span style={{ fontWeight: "lighter" }}>{item.name}</span>
+              <span style={{ fontWeight: "lighter" }}>
+                &#x20B9; {item.price}
+              </span>
             </div>
           </Grid>
         ))}

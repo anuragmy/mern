@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -8,7 +9,7 @@ import "./header.styles.scss";
 import Cart from "../Cart";
 import CartDropdown from "../Cart/CartDropdown";
 
-const Header = ({ token, cart }) => {
+const Header = ({ token, cart, auth }) => {
   const dispatch = useDispatch();
   const [signout, setSignOut] = React.useState(false);
 
@@ -36,8 +37,34 @@ const Header = ({ token, cart }) => {
         >
           SHOP
         </Link>
+        {token && auth.user && auth.user.roles === 0 && (
+          <Link
+            to="/dashboard"
+            className="option"
+            style={{
+              textDecoration: "none",
+              color: "black",
+              fontSize: "bold",
+            }}
+          >
+            DASHBOARD
+          </Link>
+        )}
+        {token && auth.user && auth.user.roles === 1 && (
+          <Link
+            to="/admin"
+            className="option"
+            style={{
+              textDecoration: "none",
+              color: "black",
+              fontSize: "bold",
+            }}
+          >
+            DASHBOARD
+          </Link>
+        )}
 
-        {signout ? (
+        {token ? (
           <Link
             to="/"
             onClick={() => {
@@ -68,6 +95,7 @@ const Header = ({ token, cart }) => {
 const mapStateToProps = (state) => ({
   token: state.auth.token,
   cart: state.cart,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, null)(Header);
