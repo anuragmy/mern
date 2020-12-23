@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Container, Grid } from "@material-ui/core";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 import { Form, Input, Button, Checkbox, Select } from "antd";
 import { CustomButton } from "../CustomButton";
-import { addProd } from '../actions'
+import { addProd } from "../actions";
+import Uploader from "./Uploader";
 
 const AddProduct = () => {
   const [state, setState] = React.useState({
@@ -45,9 +46,9 @@ const AddProduct = () => {
 
   const { Option } = Select;
 
-  const handleChange = name => (e) => {
-    const value = e.target.value
-    setState({ ...state, [name]: value })
+  const handleChange = (name) => (e) => {
+    const value = e.target.value;
+    setState({ ...state, [name]: value });
   };
 
   const children = [];
@@ -56,8 +57,6 @@ const AddProduct = () => {
       <Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>
     );
   }
-
-
 
   return (
     <div>
@@ -83,7 +82,6 @@ const AddProduct = () => {
                 rules={[{ required: true, message: "Please add description!" }]}
               >
                 <Input onChange={handleChange("description")} />
-
               </Form.Item>
               <Form.Item
                 label="Price"
@@ -91,7 +89,6 @@ const AddProduct = () => {
                 rules={[{ required: true, message: "Please add price!" }]}
               >
                 <Input onChange={handleChange("price")} />
-
               </Form.Item>
               <Form.Item label="Quantity" name="quantity">
                 <Input onChange={handleChange("quantity")} />
@@ -105,17 +102,17 @@ const AddProduct = () => {
                   placeholder="Please select"
                   onChange={handleChange}
                 >
-                  <Option key='hats'>hats</Option>
-                  <Option key='sneakers'>sneakers</Option>
-                  <Option key='mens'>mens</Option>
-                  <Option key='womens'>womens</Option>
-                  <Option key='jackets'>jackets</Option>
+                  <Option key="hats">hats</Option>
+                  <Option key="sneakers">sneakers</Option>
+                  <Option key="mens">mens</Option>
+                  <Option key="womens">womens</Option>
+                  <Option key="jackets">jackets</Option>
                 </Select>
               </Form.Item>
 
               <Form.Item label="Shipping" name="shipping">
                 <Select
-                  initialvalues={['Yes']}
+                  initialvalues={["Yes"]}
                   name="shipping"
                   style={{ width: 120 }}
                   onChange={handleChange}
@@ -123,10 +120,8 @@ const AddProduct = () => {
                   <Option value="yes">Yes</Option>
                   <Option value="no">No</Option>
                 </Select>
-
               </Form.Item>
-
-
+              <Uploader />
               <CustomButton>Add</CustomButton>
             </Form>
           </Grid>
