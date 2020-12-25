@@ -11,11 +11,19 @@ export const UserDetails = ({ user }) => {
         <div className="name">{name}</div>
         <div className="price">{email}</div>
       </div>
-      <div className="actions">
-        <CustomButton onClick={() => history.push("/admin/add-catagory")}>
+      <div className="actions" style={{ padding: 20 }}>
+        <CustomButton
+          onClick={() => history.push("/admin/add-catagory")}
+          style={{ margin: 20 }}
+        >
           Add Catagory
         </CustomButton>
-        <CustomButton>Add Product</CustomButton>
+        <CustomButton
+          onClick={() => history.push("/product")}
+          style={{ margin: 20 }}
+        >
+          Add Product
+        </CustomButton>
       </div>
     </>
   );

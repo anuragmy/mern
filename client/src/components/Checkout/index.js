@@ -2,11 +2,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import { message } from "antd";
+import { message, Empty } from "antd";
 import StripeCheckout from "react-stripe-checkout";
 import "./checkout.styles.scss";
 import CheckoutItem from "./CheckoutItem";
 import Crown from "../../assets/crown.svg";
+import Cart from "../../assets/cart.svg";
 import { CustomButton } from "../CustomButton";
 
 const Checkout = ({ total, items = [], signedIn }) => {
@@ -85,44 +86,49 @@ const Checkout = ({ total, items = [], signedIn }) => {
   const alertMesage = () => message.warn("Please sign in before payment");
 
   return !items.length ? (
-    <div className="empty-cart">
-      <p>Please Add items in Your cart</p>
-    </div>
+    <Empty description="Please add items in your cart" image={Cart} />
   ) : (
-    <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">
-          <span>PRODUCT</span>
+      <div className="checkout-page">
+        <div className="checkout-header">
+          <div className="header-block">
+            <span>PRODUCT</span>
+          </div>
+          <div className="header-block">
+            <span>PRICE</span>
+          </div>
+          <div className="header-block">
+            <span>QUANTITY</span>
+          </div>
         </div>
-        <div className="header-block">
-          <span>PRICE</span>
+        <div style={{ width: "100%" }}>
+          {items.map((item) => (
+            <CheckoutItem key={item.id} item={item} />
+          ))}
         </div>
-        <div className="header-block">
-          <span>QUANTITY</span>
+        <div className="total">
+          <span>TOTAL: &#x20B9; {total}</span>
         </div>
-      </div>
-      <div style={{ width: "100%" }}>
-        {items.map((item) => (
-          <CheckoutItem key={item.id} item={item} />
-        ))}
-      </div>
-      <div className="total">
-        <span>TOTAL: &#x20B9; {total}</span>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-        }}
-      >
-        <CustomButton
-          onClick={showRazorpay}
-          style={{ marginTop: 30, marginBottom: 30 }}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-around",
+          }}
         >
-          PROCEED TO PAY
+          <CustomButton
+            onClick={showRazorpay}
+            style={{ marginTop: 30, marginBottom: 30 }}
+          >
+            PROCEED TO PAY
         </CustomButton>
-        {/* <StripeCheckout
+          <style jsx="true">
+            {`
+            .ant-empty-description {
+              margin-top: 30px;
+            }
+          `}
+          </style>
+          {/* <StripeCheckout
           name="Crown Clothing" // the pop-in header title
           description={`Your total is ${total}`} // the pop-in header subtitle
           image={Crown}
@@ -138,9 +144,9 @@ const Checkout = ({ total, items = [], signedIn }) => {
           token={onToken} // submit callback
           stripeKey={key}
         /> */}
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 
 const mpaStateToProps = ({ cart: { items }, auth: { signedIn } }) => ({

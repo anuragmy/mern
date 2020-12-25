@@ -1,15 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Grid, Container } from "@material-ui/core";
-import { Redirect, useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, connect } from "react-redux";
-import { signIn } from "../actions";
+import { addCatagory } from "../actions";
 // import GoogleLogin from "react-google-login";
 import "tachyons";
 
-const AddCatagory = ({ loading, user }) => {
+const AddCatagory = ({ loading, user, user_id = "" }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [type, setType] = useState();
@@ -19,6 +18,7 @@ const AddCatagory = ({ loading, user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("submit");
+    dispatch(addCatagory(type, user, user_id));
   };
   const handleChange = (e) => setType(e.target.value);
 
@@ -77,7 +77,7 @@ const AddCatagory = ({ loading, user }) => {
             onClick={() => history.push("/admin")}
           >
             <span className="pl1" style={{ fontSize: 20 }}>
-              Cancel
+              Back
             </span>
           </a>
         </form>
@@ -96,6 +96,8 @@ const AddCatagory = ({ loading, user }) => {
 const mapStateToProps = (state) => ({
   loading: state.auth.authLoading,
   user: state.auth.token,
+  user_id: state.auth.user._id,
+  err: state.catagody,
 });
 
 export default connect(mapStateToProps, null)(AddCatagory);
