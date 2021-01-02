@@ -6,10 +6,10 @@ import { ACCESS_KEY_ID, ACCESS_KEY_SECRET } from "../../config";
 
 const { Dragger } = Upload;
 const config = {
-  bucketName: "pic-from-crown",
-  region: "ap-south-1",
-  accessKeyId: "AKIATA47QXPB3YZJ3U73",
-  secretAccessKey: "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",
+  bucketName: "",
+  region: "",
+  accessKeyId: "",
+  secretAccessKey: "",
 };
 
 const props = {
