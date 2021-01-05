@@ -1,4 +1,6 @@
-# mern
+# mern 
+[![HitCount](http://hits.dwyl.com/anuragmy/mern.svg)](http://hits.dwyl.com/anuragmy/mern)
+
 Full Stack E-Comm App on MERN Stack
 
 # To run the project locally
