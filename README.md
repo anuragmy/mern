@@ -3,7 +3,9 @@
 
 Full Stack E-Comm App on MERN Stack
 
-# To run the project locally
+
+
+## To run the project locally [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
 1. Clone repo (master)
 
