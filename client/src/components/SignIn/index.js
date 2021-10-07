@@ -12,8 +12,8 @@ import "tachyons";
 const SignIn = ({ loading, user }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [email, setEmail] = useState("anuragmy2729@gmail.com");
-  const [password, setPassword] = useState("Anurag123$");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
 
