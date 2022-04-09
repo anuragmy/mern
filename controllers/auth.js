@@ -8,7 +8,7 @@ const {
 } = require("../utils");
 require("dotenv").config();
 
-exports.signUp = async (req, res) => {
+exports.signUp = (req, res) => {
   const userData = {
     name: req.body.name,
     email: req.body.email,
@@ -16,7 +16,7 @@ exports.signUp = async (req, res) => {
   };
   console.log(userData);
   const user = new User(userData);
-  await user.save((err, user) => {
+  user.save((err, user) => {
     if (err) {
       return res.status(400).json({
         message: errorHandler(err),
@@ -27,11 +27,11 @@ exports.signUp = async (req, res) => {
     //set token as 't' om cookie
     res.cookie("t", token, { expire: new Date() + 9999 });
     // send user and toke to client
-    const { _id, name, email, roles } = user;
+    const { _id, name, email } = user;
     req.user = user;
     return res.status(200).json({
       message: "signed in",
-      user: { _id, email, name, roles },
+      user: { _id, email, name },
       token,
     });
   });
@@ -77,24 +77,21 @@ exports.signOut = async (req, res) => {
   });
 };
 
-exports.requireSignIn = expressJwt({
-  secret: process.env.JWT_SECRET,
-  algorithms: ["sha1", "RS256", "HS256"],
-  userProperty: "auth",
-});
-
 exports.isAuth = (req, res, next) => {
-  if (!req.profile && !req.auth && req.profile._id !== req.auth._id)
-    return res.status(403).json({
+  const header = req.headers["authorization"];
+  const token = header.split(" ")[1];
+
+  if (!token)
+    return res.status(401).json({
       err: "Access denied",
     });
-  next();
-};
-
-exports.isAdmin = (req, res, next) => {
-  if (req.profile.roles === "0")
-    return res.status(403).json({
-      error: "Admin resourse, access denied!",
-    });
-  next();
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    console.log(user, "err", err);
+    if (err)
+      return res.status(403).json({
+        error: "invalid token",
+      });
+    res.user = user;
+    next();
+  });
 };

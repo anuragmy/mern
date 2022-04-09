@@ -1,23 +1,21 @@
 import React from "react";
 
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+
 import "./index.css";
 import App from "./App";
-import { persistor, store } from "../src/components/store";
+
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
-import { PersistGate } from "redux-persist/integration/react";
+
 import reportWebVitals from "./reportWebVitals";
 import * as registerServiceWorker from "./registerServiceWorker";
 // import "semantic-ui-css/semantic.min.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
+    <PersistGate persistor={persistor}>
+      <App />
+    </PersistGate>
   </React.StrictMode>,
 
   document.getElementById("root")

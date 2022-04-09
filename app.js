@@ -3,7 +3,6 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 const bodyParser = require("body-parser");
-// const expressValidator = require('express-validator');
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 require("./db");
@@ -20,7 +19,7 @@ app.use(cors());
 app.use(cookieParser());
 
 // routes
-app.use("/api", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api", restrauntsRoutes);
 
 app.listen(port, () => `server running on ${port}`);

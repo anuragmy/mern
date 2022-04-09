@@ -1,8 +1,7 @@
 const Restraunts = require("../models/Restraunts");
 
-exports.getRestaunts = async (req, res, next) => {
-  console.log(req.query.keyword);
-  const resl = await Restraunts.find({
+exports.getRestaunts = async (req, res) => {
+  const response = await Restraunts.find({
     $or: [
       {
         "Restaurant Name": {
@@ -24,10 +23,10 @@ exports.getRestaunts = async (req, res, next) => {
       },
     ],
   });
-  if (resl) {
+  if (response) {
     return res.status(200).json({
-      resl,
-      total: resl.length,
+      response,
+      total: response.length,
       message: "success",
     });
   } else {
