@@ -1,0 +1,23 @@
+class APIFeatures {
+  constructor(query, queryString, type) {
+    this.query = query;
+    this.queryString = queryString;
+  }
+
+  search() {
+    const keyword = this.queryString.keyword
+      ? {
+          "Restaurant Name": {
+            $regex: this.queryString.keyword,
+            $options: "i",
+          },
+        }
+      : {};
+    console.log(keyword);
+
+    this.query = this.query.find({ ...keyword });
+    return this.query;
+  }
+}
+
+module.exports = APIFeatures;

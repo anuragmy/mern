@@ -2,6 +2,6 @@
 import "./App.css";
 import Routes from "./routes";
 
-const App = () => <Routes />;
+const App = () => <div>this is app</div>;
 
 export default App;
