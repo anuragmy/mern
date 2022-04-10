@@ -22,7 +22,7 @@ exports.getRestaunts = async (req, res) => {
         },
       },
     ],
-  });
+  }).limit(20);
   if (response) {
     return res.status(200).json({
       response,
@@ -37,7 +37,7 @@ exports.getRestaunts = async (req, res) => {
 };
 
 exports.getAllRestaunts = async (req, res) => {
-  const response = await Restraunts.find().limit(50);
+  const response = await Restraunts.find().limit(20);
   if (response) {
     return res.status(200).json({
       response,

@@ -9,7 +9,6 @@ require("dotenv").config();
 
 exports.signUp = (req, res) => {
   const userData = {
-    name: req.body.name,
     email: req.body.email,
     password: hashPassword(req.body.password),
   };
@@ -17,6 +16,7 @@ exports.signUp = (req, res) => {
   const user = new User(userData);
   user.save((err, user) => {
     if (err) {
+      console.log(err);
       return res.status(400).json({
         message: errorHandler(err),
       });
@@ -26,11 +26,11 @@ exports.signUp = (req, res) => {
     //set token as 't' om cookie
     res.cookie("t", token, { expire: new Date() + 9999 });
     // send user and toke to client
-    const { _id, name, email } = user;
+    const { _id, email } = user;
     req.user = user;
     return res.status(200).json({
       message: "signed in",
-      user: { _id, email, name },
+      user: { _id, email },
       token,
     });
   });
