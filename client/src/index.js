@@ -13,9 +13,7 @@ import * as registerServiceWorker from "./registerServiceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <PersistGate persistor={persistor}>
-      <App />
-    </PersistGate>
+    <App />
   </React.StrictMode>,
 
   document.getElementById("root")
