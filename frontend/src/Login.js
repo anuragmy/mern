@@ -7,31 +7,31 @@ const { Title } = Typography;
 const Login = () => {
   const [isSignIn, setSignIn] = useState(true);
   const [vals, setVals] = useState("");
-  const onFinish = (values) => {
+
+  const onFinish = async (values) => {
     console.log("Success:", values);
     setVals(values);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const handleSubmit = async () => {
-    const { email, password } = vals;
     const data = {
-      email,
-      password,
+      email: values.email,
+      password: values.password,
     };
+
+    console.log("data", data);
 
     if (!isSignIn) data["name"] = vals?.username;
 
     const res = await axios.post(
-      `/api/${isSignIn ? "sign-in" : "signup"}`,
+      `http://localhost:3001/api/auth/${isSignIn ? "sign-in" : "signup"}`,
       data
     );
     if (res) {
-      console.log(res);
+      console.log(res.data.token);
+      if (res.data.token) localStorage.setItem("token", res.data.token);
     }
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -98,7 +98,7 @@ const Login = () => {
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit" onClick={handleSubmit}>
+          <Button type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>

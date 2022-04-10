@@ -29,6 +29,7 @@
     "mongoose": "^5.10.18",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.6",
+    "redux-thunk": "^2.4.1",
     "uuid": "^8.3.1"
   }
 }

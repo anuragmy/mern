@@ -35,3 +35,18 @@ exports.getRestaunts = async (req, res) => {
     });
   }
 };
+
+exports.getAllRestaunts = async (req, res) => {
+  const response = await Restraunts.find().limit(50);
+  if (response) {
+    return res.status(200).json({
+      response,
+      total: response.length,
+      message: "success",
+    });
+  } else {
+    return res.status(404).json({
+      error: "Restraunts not found",
+    });
+  }
+};

@@ -1,6 +1,5 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken"); // to sign the token
-const expressJwt = require("express-jwt"); // for auth
 const {
   hashPassword,
   errorHandler,
